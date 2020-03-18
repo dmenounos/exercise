@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.exercise.model.LegalEntity;
+import com.example.exercise.model.LegalEntityBuilder;
 
 @SpringBootTest
 public class LegalEntityServiceTest {
@@ -28,6 +29,8 @@ public class LegalEntityServiceTest {
 
 	@Test
 	public void createNull_ShouldThrow() {
+
+		// Attempt to create a null reference
 		assertThrows(ServiceException.class, () -> {
 			legalEntityService.create(null);
 		});
@@ -35,6 +38,8 @@ public class LegalEntityServiceTest {
 
 	@Test
 	public void createInvalid_ShouldThrow() {
+
+		// Attempt to create an incomplete LegalEntity
 		assertThrows(ServiceException.class, () -> {
 			legalEntityService.create(new LegalEntity());
 		});
@@ -42,8 +47,11 @@ public class LegalEntityServiceTest {
 
 	@Test
 	public void createDuplicate_ShouldThrow() {
+
+		// Create a LegalEntity
 		legalEntityService.create(createLegalEntity());
 
+		// Attempt to a create a duplicate LegalEntity
 		assertThrows(ServiceException.class, () -> {
 			legalEntityService.create(createLegalEntity());
 		});
@@ -51,12 +59,16 @@ public class LegalEntityServiceTest {
 
 	@Test
 	public void create() {
+
+		// Create a LegalEntity
 		LegalEntity legalEntity = legalEntityService.create(createLegalEntity());
 		assertNotNull(legalEntity);
 	}
 
 	@Test
 	public void updateNonExistent_ShouldThrow() {
+
+		// Attempt to update a LegalEntity that does not exist
 		assertThrows(ServiceException.class, () -> {
 			legalEntityService.update(createLegalEntity());
 		});
@@ -64,9 +76,12 @@ public class LegalEntityServiceTest {
 
 	@Test
 	public void update() {
+
+		// Prepare a LegalEntity
 		LegalEntity legalEntity1 = createLegalEntity();
 		database.legalEntities.put(legalEntity1.getName(), legalEntity1);
 
+		// Update the LegalEntity
 		LegalEntity legalEntity2 = createLegalEntity();
 		legalEntity2.setCountry(LegalEntity.Country.CH);
 		legalEntity2 = legalEntityService.update(legalEntity2);
@@ -74,15 +89,15 @@ public class LegalEntityServiceTest {
 	}
 
 	/*
-	 * Factory method for Legal Entity object.
+	 * Convenience factory method.
 	 */
 	private static LegalEntity createLegalEntity() {
-		LegalEntity legalEntity = new LegalEntity();
-		legalEntity.setName("NAME");
-		legalEntity.setIncorporationDate(new Date());
-		legalEntity.setCountry(LegalEntity.Country.US);
-		legalEntity.getShareholders().put("Share Holder A", 1000);
-		legalEntity.getShareholders().put("Share Holder B", 2000);
-		return legalEntity;
+		return new LegalEntityBuilder()
+			.setName("Legal Entity")
+			.setIncorporationDate(new Date())
+			.setCountry(LegalEntity.Country.US)
+			.addShareholder("Share Holder A", 1000)
+			.addShareholder("Share Holder B", 2000)
+			.build();
 	}
 }
