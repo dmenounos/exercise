@@ -13,9 +13,11 @@
 	<modules>
 		<module>exercise-service-api</module>
 		<module>exercise-service-impl</module>
+		<module>exercise-web</module>
 	</modules>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -33,6 +35,11 @@
 				<artifactId>exercise-service-impl</artifactId>
 				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>exercise-web</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
 
 			<!-- Spring -->
 			<dependency>
@@ -42,9 +49,20 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>2.2.5.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>2.2.5.RELEASE</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-tomcat</artifactId>
+				<version>2.2.5.RELEASE</version>
+				<scope>provided</scope>
 			</dependency>
 
 		</dependencies>
@@ -53,6 +71,7 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<!-- Eclipse import project -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -60,6 +79,23 @@
 						<source>${java.version}</source>
 						<target>${java.version}</target>
 					</configuration>
+				</plugin>
+				<!-- JUnit 5 run tests -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>2.22.0</version>
+				</plugin>
+				<!-- Spring Boot run -->
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>2.2.5.RELEASE</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

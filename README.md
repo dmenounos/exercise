@@ -1,4 +1,5 @@
-# Exercise Java Web Application
+Exercise Java Web Application
+=============================
 
 A Java web application built with the Spring 5 platform.
 It demonstrates the following features:
@@ -7,6 +8,18 @@ It demonstrates the following features:
 * A REST resource for exposing Legal Entity objects
 * Multi module project based on Maven
 
-## Build instructions
+
+Build instructions
+------------------
 
 	$ mvn clean install
+
+
+Run instructions
+----------------
+
+	$ cd exercise-web
+	$ mvn spring-boot:run
+
+Access the REST service through:
+http://localhost:8080/api/legal-entities
