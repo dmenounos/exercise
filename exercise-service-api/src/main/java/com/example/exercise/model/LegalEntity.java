@@ -21,6 +21,16 @@ public class LegalEntity {
 	private Country country;
 	private Map<String, Integer> shareholders = new HashMap<>();
 
+	public LegalEntity() {
+	}
+
+	public LegalEntity(LegalEntity other) {
+		this.name = other.name;
+		this.incorporationDate = other.incorporationDate;
+		this.country = other.country;
+		this.shareholders.putAll(other.shareholders);
+	}
+
 	public String getName() {
 		return name;
 	}
