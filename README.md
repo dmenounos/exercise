@@ -23,3 +23,6 @@ Run instructions
 
 Access the REST service through:
 http://localhost:8080/api/legal-entities
+
+Access the UI at:
+http://localhost:8080/
